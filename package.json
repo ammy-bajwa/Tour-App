@@ -9,7 +9,7 @@
     "devServer": "webpack-dev-server",
     "webpack": "webpack"
   },
-  "proxy":"http://localhost:3000",
+ 
   "dependencies": {
     "axios": "^0.18.0",
     "babel-cli": "^6.26.0",

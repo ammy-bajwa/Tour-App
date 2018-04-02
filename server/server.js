@@ -3,103 +3,71 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var cors = require('cors');
-const passport = require('passport');
 var router = express.Router();
+const feed = require('./routes/feed.js');
+const signIn = require('./routes/signin');
+const signUp = require('./routes/signup');
+const specificUser = require('./routes/specificuser');
+const editUser = require('./routes/edituser');
+const allTours = require('./routes/alltours');
+const addTour = require('./routes/addtour');
+const tour = require('./routes/tour');
+const editTour = require('./routes/editTour');
 
-app.post('/login', passport.authenticate('local'),
-    function(req, res) 
-    { 
-      // If this function gets called, authentication was successful. 
-      // `req.user` contains the authenticated user. 
+mongoose.connect('mongodb://localhost:27017/myTourAppDB');
 
-      res.redirect('/users/' + req.user.username); 
-   });
 
 
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://localhost:27017/myTourAppDB');
-
-
-const User = mongoose.model('users',
-    {
-        name: {
-            type: String, require: true, unique:true
-        },
-        email: {
-            type: String, require: true, unique:true
-        },
-        password: {
-            type: String, require: true
-        }
-    },
-);
 
 
 //This root is diffirent for each individual user accourding to his followings
-app.get('/', (req, res) => {
-    res.end(" This is root / ");
-});
 
-//This root is for signup
-
-app.post('/signup', (req, res) => {
-    let user = new User({
-        name: req.body.userFullName,
-        email: req.body.userEmail,
-        password: req.body.userPassword
-
-    });
-    user.save((err,user) => {
-       if(err) throw err;
-       res.json(user);
-    });
-    // res.end(" This is signup /signup ");
-});
+app.use('/', feed);
 
 //This root is for signin
 
-app.get('/signin', (req, res) => {
-    res.end(" This is signin /signin ");
-});
+app.use('/signin', signIn);
 
-//this root is to view profile
 
-app.get('/specificuser', (req, res) => {
-    res.end(" This is specific user /specificuser ");
-});
+//This root is for singnup
+
+app.use('/signup', signUp);
+
+//This root is for specific user
+
+app.use('/:specificUser', specificUser);
 
 //This root is to edit logged in user profile
 
-app.get('/specificuser/editUser', (req, res) => {
-    res.end(" This is specific editUser /editUser ");
-});
+app.use('/:specificUser/edituser', editUser);
 
 //This root is to view all the tours of a specific user
 
-app.get('/specificuser/tours', (req, res) => {
-    res.end(" These are all tours /tours ");
-});
+app.use('/:specificUser/tours', allTours);
 
 //This root is to add a tour for a specific user
 
-app.get('/specificuser/tours/add', (req, res) => {
-    res.end(" Here You Will Add Your Tour /tours ");
-});
+app.use('/:specificUser/tours/add', addTour);
 
 //This root is to view the specific tour of a specific user
 
-app.get('/specificuser/tours/specificTour', (req, res) => {
-    res.end(" This is specific specificTour /specificTour ");
-});
+app.use('/:specificUser/tours/:tourid', tour);
 
 //This root is to edit a specific tour of a specific user
 
-app.get('/specificuser/tours/specificTour/edit', (req, res) => {
-    res.end(" This is specific specificTour edit /specificTour/edit ");
-});
+app.use('/:specificUser/tours/:tourid/edit', editTour);
+
+
+
+
+
+
+
+
 
 
 

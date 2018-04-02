@@ -7,17 +7,15 @@ class Form extends React.Component {
         let userFullName = e.target.elements.fullName.value;
         let userEmail = e.target.elements.email.value;
         let userPassword = e.target.elements.pwd.value;
-        axios({
-          method: 'post',
-          url: 'http://localhost:3000/signup',
-          data: {
+        axios.post('http://localhost:3000/signup', {
             userFullName,userEmail,userPassword
-          }
-        }).then((response)=>{
-            console.log(response.data)
-        }).catch((err)=>{
-            alert(err)
-        });
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
     render() {
         return (
