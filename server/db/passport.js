@@ -1,13 +1,13 @@
-var express = require('express');
-const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
-const { User } = require('../db/userModel');
-var router = express.Router();
 
+// Load user model
+const User = mongoose.model('users');
 
-passport.use(new LocalStrategy({
-    usernameField: 'email',
+module.exports = function (passport) {
+  passport.use(new LocalStrategy({
+    usernameField: 'userEmail',
+    passwordField: 'userPassword'
   }, (email, password, done) => {
     // Match user
     User.findOne({
@@ -35,11 +35,4 @@ passport.use(new LocalStrategy({
       done(err, user);
     });
   });
-
-router.post('/', passport.authenticate('local'),(req,res)=>{
-    res.json(req.user);
-});
-
-//export this router to use in our index.js
-module.exports = router;
-
+}

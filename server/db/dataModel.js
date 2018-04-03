@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-let UserData = mongoose.model('usersData',
-    {
-        img: { data: Buffer, contentType: String }
 
-    }
-);
+
+const dataSchema = {
+    img: { data: Buffer, contentType: String }
+
+};
+
+let UserData = mongoose.model('usersData', dataSchema);
 
 module.exports = { UserData };
