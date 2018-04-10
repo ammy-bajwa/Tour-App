@@ -13,9 +13,8 @@ const userSchema = {
     password: {
         type: String, require: true, min: 5, max: 65
     },
-    // followers: {
-    //     type: Schema.Types.ObjectId, ref: 'Tours'
-    // },
+    tours:[],
+    followers:[],
     date: {
         type: Date,
         default: Date.now
