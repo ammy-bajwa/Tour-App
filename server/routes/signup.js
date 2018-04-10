@@ -10,12 +10,6 @@ router.post('/', (req, res) => {
     let user = new User({ 'name': req.body.userFullName, 'email': req.body.userEmail, 'password': req.body.userPassword });
     user.save((err, user) => {
         if (err) throw res.json(err);
-        let follower = new Followers({
-            user: user._id,
-            followers:['amir','hassan']
-        });
-        follower.save();
-        res.json(user);
     });
   
 });
