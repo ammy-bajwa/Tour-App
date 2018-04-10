@@ -5,8 +5,12 @@ const { User } = require('../db/userModel');
 var router = express.Router();
 
 
-router.get('/', (req, res) => {
-    res.end(" This is specific user /specificuser ");
+router.post('/', (req, res) => {
+  
+    User.findOne({ _id: req.user._id }, function (err, user) {
+        if (err) return res.json(err);
+        res.json(user);
+      });
 });
 
 //export this router to use in our index.js
