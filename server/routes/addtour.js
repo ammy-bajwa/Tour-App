@@ -1,8 +1,7 @@
 const express = require('express');
 const { User } = require('../db/userModel');
-const uuid = require('uuid');
+const { toursModel } = require('../db/TourModel');
 const router = express.Router();
-
 
 
 
@@ -10,19 +9,24 @@ router.post('/', (req, res) => {
     if (!req.body && !req.files) {
         res.json({ success: false });
     } else {
-        User.findOne({ email: 'amir' }, (err, user) => {
-            if (err) return res.json(err);
-            user.tours.push({
-                id:uuid(),
-                title:req.body.title,
-                note:req.body.note,
+        var newTour = new toursModel(
+            {
+                user: req.user._id,
+                title: req.body.title,
+                note: req.body.note,
                 picture: req.files[0].filename,
-                videos: req.files[1].filename,
-            });
-            user.save().then((user)=>{
-                res.json(user.tours);
-            });
-        });
+                videos: req.files[1].filename
+            }
+        );
+
+        newTour.save(function (err, tour) {
+            if (err)
+                console.log(err);
+            else
+                res.json(tour);
+
+        }
+        );
 
     }
 });

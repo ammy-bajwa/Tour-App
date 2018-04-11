@@ -108,6 +108,5 @@ app.use(function (req, res, next) {
 // app.use('/:specificUser/tours/:tourid/edit', ensureAuthenticated, editTour);
 
 
-app.use('/:specificUser/tours/:tourid/edit', editTour);
-
+app.use('/add', addTour);
 app.listen(3000);

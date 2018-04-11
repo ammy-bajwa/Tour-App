@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 
 const followersSchema = {
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    user: { type: String, required:true },
     followers:Array
 
 };
