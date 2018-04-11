@@ -1,10 +1,17 @@
 var express = require('express');
-const app = express();
+const { toursModel } = require('../db/TourModel');
 var router = express.Router();
 
 
 router.get('/', (req, res) => {
-    res.end(" This is main user feed");
+
+    toursModel.find({ title: 'lahore' }, (err, allTours) => {
+        let pictures = allTours.map((tour)=>{
+            return tour.picture;
+        });
+        res.json(pictures);
+    })
+
 });
 
 //export this router to use in our index.js

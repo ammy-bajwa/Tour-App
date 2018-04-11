@@ -13,6 +13,8 @@ const specificUser = require('./routes/specificuser');
 const editUser = require('./routes/edituser');
 const allTours = require('./routes/alltours');
 const addTour = require('./routes/addtour');
+const followersNew = require('./routes/followersNew');
+const addFollowers = require('./routes/addFollowers');
 const tour = require('./routes/tour');
 const editTour = require('./routes/editTour');
 const signOut = require('./routes/signout');
@@ -87,6 +89,10 @@ app.use(function (req, res, next) {
 
 // app.use('/:specificUser', ensureAuthenticated, specificUser);
 
+//This root is to add a follower for a users
+
+// app.use('/:specificUser/addfollowers',ensureAuthenticated, addFollowers);
+
 // //This root is to edit logged in user profile
 
 // app.use('/:specificUser/edituser', ensureAuthenticated, editUser);
@@ -94,6 +100,10 @@ app.use(function (req, res, next) {
 // //This root is to view all the tours of a specific user
 
 // app.use('/:specificUser/tours', ensureAuthenticated, allTours);
+
+
+//this root is to create or search followers
+// app.use('/:specificUser/followers',ensureAuthenticated, followersNew);
 
 // //This root is to add a tour for a specific user
 
@@ -108,5 +118,7 @@ app.use(function (req, res, next) {
 // app.use('/:specificUser/tours/:tourid/edit', ensureAuthenticated, editTour);
 
 
-app.use('/add', addTour);
+app.use('/', tour);
+
+
 app.listen(3000);

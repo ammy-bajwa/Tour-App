@@ -1,14 +1,14 @@
 var express = require('express');
-const { User } = require('../db/userModel');
+const { toursModel } = require('../db/TourModel');
 var router = express.Router();
 
 
 router.get('/', (req, res) => {
     
-    User.findOne({ 'name': 'amir' }, {
-    }, (err, user) => {
+    toursModel.find({ user: 'amir' }, {
+    }, (err, tours) => {
         if (err) return res.json(err);
-        res.json(user.tours);
+        res.json(tours);
     });
 
 });

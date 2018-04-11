@@ -5,7 +5,7 @@ var router = express.Router();
 
 router.get('/', (req, res) => {
     
-    User.findOne({ 'name': 'amir' }, {
+    User.findOne({ user: 'amir' }, {
     }, (err, user) => {
         if (err) return res.json(err);
         user.tours = req.body.tours;

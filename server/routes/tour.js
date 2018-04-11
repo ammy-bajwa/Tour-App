@@ -1,18 +1,14 @@
 var express = require('express');
-const { User } = require('../db/userModel');
+const { toursModel } = require('../db/TourModel');
 var router = express.Router();
 
 
 router.get('/', (req, res) => {
 
-    User.findOne({ 'name': 'amir' }, {
-    }, (err, user) => {
+    toursModel.findOne({ user:'amir' }, {
+    }, (err, tour) => {
         if (err) return res.json(err);
-        user.tours.map((tour) => {
-            if (tour.id == req.user.tours.id) {
-                return res.json(tour);
-            }
-        })
+        res.json(tour);
     });
 
 });
